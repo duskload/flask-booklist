@@ -2,11 +2,16 @@
 
 {% block body %}
     <div class='book-wrapper'>
-        <ul class="list-group">
-            {% for book in books %}
-                <li class="item"> {{ book.ratings_count }} </li>
-            {% endfor %}
-        </ul>
+        <div class="back-link-wrapper">
+            <a href="/dashboard">Back</a>
+        </div>
+        <div class="list-wrapper">
+            <div class="card" style="width: 18rem;">
+                <div class="card-body">
+                    <p class="card-text">Rating: {{ book_data.ratings_count }}</p>
+                </div>
+            </div>
+        </div>
     </div>
     {% block style %}
         <style>
@@ -16,6 +21,16 @@
                align-items: center;
                height: 100%;
                width: 100%;
+               flex-direction: column;
+           }
+
+           .back-link-wrapper {
+               display: flex;
+               height: 40px;
+               width: 100%;
+               justify-content: flex-end;
+               padding-right: 20px;
+               align-items: center;
            }
        </style>
     {% endblock %}

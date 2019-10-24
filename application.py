@@ -98,6 +98,6 @@ def book(isbn):
     res = requests.get("https://www.goodreads.com/book/review_counts.json", params={"key": os.getenv("GOODREADS_API_KEY"), "isbns": isbn })
     response_obj = res.json()
 
-    books = response_obj['books']
+    book_data = response_obj['books'][0]
 
-    return render_template('book.html', books=books)
+    return render_template('book.html', book_data=book_data)
