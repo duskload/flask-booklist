@@ -62,7 +62,7 @@ def signup():
 
 @app.route('/logout')
 def logout():
-    session['user'] = {}
+    session.pop('user')
     return redirect('/')
 
 

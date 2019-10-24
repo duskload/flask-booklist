@@ -3,5 +3,5 @@ envs examples for windows
 
 set FLASK_APP=application.py
 set FLASK_DEBUG=1
-set DATABASE_ULR='databaseurl'
-set GOODREADS_API_KEY='goodreads-api-key'
+set DATABASE_ULR=postgres://ghamuxspmiyefh:20d60d0ae05f6ee064020a6c1d0919ba916b382289a5dcf7fb0bac1be653f2e2@ec2-46-137-113-157.eu-west-1.compute.amazonaws.com:5432/dc32t429r4qs9i
+set GOODREADS_API_KEY=WFCcozT8H7yhDoYOtTmvA
