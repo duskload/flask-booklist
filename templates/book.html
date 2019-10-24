@@ -1,0 +1,22 @@
+{% extends "layout.html" %}
+
+{% block body %}
+    <div class='book-wrapper'>
+        <ul class="list-group">
+            {% for book in books %}
+                <li class="item"> {{ book.ratings_count }} </li>
+            {% endfor %}
+        </ul>
+    </div>
+    {% block style %}
+        <style>
+           .book-wrapper {
+               display: flex;
+               justify-content: center;
+               align-items: center;
+               height: 100%;
+               width: 100%;
+           }
+       </style>
+    {% endblock %}
+{% endblock%}

@@ -1,4 +1,5 @@
 import os
+import requests
 
 from flask import Flask, session, render_template, request, redirect
 from flask_session import Session
@@ -26,6 +27,10 @@ if not os.getenv("GOODREADS_API_KEY"):
 
 @app.route("/", methods=['POST', 'GET'])
 def signin():
+    if request.method == 'GET':
+        if session.get('user') is not None:
+            return redirect('/dashboard')
+
     username = request.form.get('username')
     password = request.form.get('password')
 
@@ -88,4 +93,11 @@ def search():
     # return a message that search gives null results
     return render_template('dashboard.html')
 
-    
+@app.route("/book/<isbn>", methods=["GET"])
+def book(isbn):
+    res = requests.get("https://www.goodreads.com/book/review_counts.json", params={"key": os.getenv("GOODREADS_API_KEY"), "isbns": isbn })
+    response_obj = res.json()
+
+    books = response_obj['books']
+
+    return render_template('book.html', books=books)
