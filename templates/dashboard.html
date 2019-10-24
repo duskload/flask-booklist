@@ -2,18 +2,16 @@
 
 {% block body %}
     <div class='dashboard-wrapper'>
-        <div class='logout-wrapper'>
-            <form action='/logout' id='logout' method='post' name='logout'>
-                <input type="submit" name='logout-button' class="btn btn-link" value="Logout" />
-            <form>
+        <div class='link-wrapper'>
+            <a href="/logout">Logout</a>
         </div>
         <div class='search-wrapper'>
-            <form id='search-form' class='form-inline' name='search-form' action='/search' method='post'>
+            <form id='search-form' class='search-form' name='search' action='/search' method='post'>
                 <div class="form-group">
-                    <input type="text" class="form-control" id="search" placeholder="Search...">
+                    <input type="text" class="form-control" id="search" name='search' placeholder="Search...">
                 </div>
 
-                <input type="submit" name='search-button' class="btn btn-primary" value='Search' />
+                <input type="submit" name='search-button' class="btn btn-outline-secondary" value='Search' />
             </form>
         </div>
     </div>
@@ -21,27 +19,37 @@
         <style>
             .dashboard-wrapper {
                 display: flex;
-                width: 768px;
-                height: 100%;
+                width: 100%;
+                height: 100vh;
                 flex-direction: column;
                 margin: 0 auto;
             }
 
-            .logout-wrapper {
-                display: flex;
-                width: 100%;
-                justify-content: flex-end;
-                padding: 15px 0px;
+            .link-wrapper {
+                text-align: right;
+                padding: 15px;
             }
 
             .search-wrapper {
-                margin-top: 50px;
-                display: -webkit-inline-box;
+                height: 100%;
+                width: 100%;
+
+                display: flex;
+                justify-content: center;
+                align-items: center;
+
+                transform: translate(0, -20%);
             }
 
-            .search-wrapper > .form-group {
-                width: calc(100% - 80px);
-                margin-right: 7px;
+            .search-form {
+                display: flex;
+                flex-direction: row;
+            }
+
+            .search-form .form-group {
+                margin-bottom: 0;
+                width: 600px;
+                margin-right: 5px;
             }
             
        </style>
