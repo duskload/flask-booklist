@@ -1,0 +1,7 @@
+
+envs examples for windows
+
+set FLASK_APP=application.py
+set FLASK_DEBUG=1
+set DATABASE_ULR='databaseurl'
+set GOODREADS_API_KEY='goodreads-api-key'

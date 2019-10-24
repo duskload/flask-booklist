@@ -1,0 +1,32 @@
+{% extends "layout.html" %}
+
+{% block heading %}
+    Books
+{% endblock %}
+
+{% block body %}
+    {%for book in books%}
+        <ul class='list-wrapper'>
+            <li class='list-item'>{{ book.author }} wrote a book called {{ book.title }} in {{ book.year }} year</li>
+        </ul>
+    {% endfor %}
+    
+    {% block style%}
+        <style>
+          h1 {
+              font-size: 50px;
+          }
+
+          .list-wrapper {
+              height: 100%;
+              width: 100%;
+              margin: 0 auto;
+          }
+
+          .list-item {
+              font-size: 24px;
+              font-weight: '400';
+          }
+        </style>
+    {% endblock %}
+{% endblock%}

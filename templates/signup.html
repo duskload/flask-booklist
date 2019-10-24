@@ -1,0 +1,35 @@
+{% extends "layout.html" %}
+
+{% block heading %}
+    Sign Up
+{% endblock %}
+
+{% block body %}
+    <div class='login-wrapper'>
+        <form method='post'>
+             <div class="form-group">
+                <label for="sign-up-username">Username</label>
+                <input type="text" class="form-control" id="sign-up-username" name="username" placeholder="Enter username">
+            </div>
+            <div class="form-group">
+                <label for="sign-up-password">Password</label>
+                <input type="password" class="form-control" id="sign-up-password" name='password' placeholder="Password">
+            </div>
+            <div class="form-group">
+                <span>Already registered? <a href="/">Sign In</a></span>
+            </div>
+            <button type="submit" class="btn btn-primary">Sign Up</button>
+        </form>
+    </div>
+    {% block style %}
+        <style>
+            h1 {
+                text-align: center;
+            }
+            .login-wrapper {
+                width: 768px;
+                margin: 0 auto;
+            }
+       </style>
+    {% endblock %}
+{% endblock%}
