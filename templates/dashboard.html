@@ -6,13 +6,25 @@
             <a href="/logout">Logout</a>
         </div>
         <div class='search-wrapper'>
-            <form id='search-form' class='search-form' name='search' action='/search' method='post'>
+            <form id='search-form' class='search-form' action='/search' method='post'>
                 <div class="form-group">
                     <input type="text" class="form-control" id="search" name='search' placeholder="Search...">
                 </div>
 
                 <input type="submit" name='search-button' class="btn btn-outline-secondary" value='Search' />
             </form>
+        </div>
+
+        <div class='results-wrapper'>
+            <ul class="list-group">
+                {% for value in values %}
+                    <li class="item">
+                        <a href="#">{{ value.author }}</a>
+                        <span class="list-item-title">{{ value.title }}</span>
+                        <span class="list-item-year">{{ value.year }}</span>
+                    </li>
+                {% endfor %}
+            </ul>
         </div>
     </div>
     {% block style %}
@@ -51,7 +63,30 @@
                 width: 600px;
                 margin-right: 5px;
             }
-            
+
+            .results-wrapper {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                width: 100%;
+            }
+
+            .list-group {
+                margin-top: 25px;
+                list-style: none;
+            }
+
+            .list-item-title {
+                font-size: 14px;
+                font-weight: 600;
+                color: gray;
+            }
+
+            .list-item-year {
+                font-size: 14px;
+                font-weight: bold;
+                color: black;
+            }
        </style>
     {% endblock %}
 {% endblock%}

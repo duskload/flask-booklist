@@ -2,7 +2,7 @@ import os
 
 from flask import Flask, session, render_template, request, redirect
 from flask_session import Session
-from sqlalchemy import create_engine
+from sqlalchemy import create_engine, text
 from sqlalchemy.orm import scoped_session, sessionmaker
 
 app = Flask(__name__)
@@ -55,12 +55,10 @@ def signup():
     
     return render_template("signup.html")
 
-@app.route('/logout', methods=["POST"])
+@app.route('/logout')
 def logout():
-    if request.method == "POST":
-        if request.form.get('logout-button'):
-            session['user'] = {}
-            return redirect('/')
+    session['user'] = {}
+    return redirect('/')
 
 
 @app.route("/dashboard")
@@ -68,9 +66,26 @@ def dashboard():
     user = session.get("user")
 
     if user is not None:
-        books = db.execute("SELECT * FROM books").fetchmany(100)
-        return render_template('dashboard.html', user=user, books=books)
+        return render_template('dashboard.html')
     
     return redirect('/')
+
+@app.route("/search", methods=["POST"])
+def search():
+    if request.method == "POST":
+        query = request.form.get('search')
+
+        if query is not None:
+            values = db.execute("SELECT * FROM books WHERE year LIKE :query OR title LIKE :query OR isbn LIKE :query", {
+                "query": f"%{query}%"
+            }).fetchall()
+
+            if len(values) == 0:
+                values = [{ "title": "No matches found" }]
+
+            return render_template('dashboard.html', values=values)
+
+    # return a message that search gives null results
+    return render_template('dashboard.html')
 
     
