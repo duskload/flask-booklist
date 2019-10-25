@@ -5,22 +5,48 @@
         <div class="back-link-wrapper">
             <a href="/dashboard">Back</a>
         </div>
-        <div class="list-wrapper">
-            <div class="card" style="width: 18rem;">
-                <div class="card-body">
-                    <h5 class="card-title">{{ book_data.title }}</h5>
-                    <h6 class="card-subtitle mb-2 text-muted">{{ book_data.author }}</h6>
-                    <p class="card-text small">Publication date: {{ book_data.year }}</p>
-                    <p class="card-text">ISBN number: {{ book_data.isbn }}</p>
-
-                    <p class="card-text">Reviews: {{ book_data.reviews_count }}</p>
-                    <p class="card-text">Average rating: {{ book_data.average_score }}</p>
+        <div class="book-details">
+            <div class="list-wrapper">
+                <div class="card" style="width: 18rem;">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ book_data.title }}</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">{{ book_data.author }}</h6>
+                        <p class="card-text small">Publication date: {{ book_data.year }}</p>
+                        <p class="card-text">ISBN number: {{ book_data.isbn }}</p>
+                        <p class="card-text">Reviews: {{ book_data.reviews_count }}</p>
+                        <p class="card-text">Average rating: {{ book_data.average_score }}</p>
+                    </div>
                 </div>
+            </div>
+            <div class="review-wrapper">
+                <form action='/submit-review' method="post">
+                    <div class="form-group rating">
+                        <label for="rate">Rate a book:</label>
+                        <select class="form-control" id="rate">
+                            {% for value in [1,2,3,4,5] %}
+                                <option>{{ value }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="form-group textarea">
+                        <label for="textarea">What do you think about this book? </label>
+                        <textarea class="form-control textarea" id="textarea" rows="9"></textarea>
+                    </div>
+                    <input type="submit" name='submit-review' class="btn btn-outline-primary" value='Submit review' />
+                </form>
             </div>
         </div>
     </div>
     {% block style %}
         <style>
+            .book-details {
+                display: flex;
+                flex-direction: row;
+                width: 768px;
+                height: 405px;
+                justify-content: flex-start;
+            }
+
            .book-wrapper {
                display: flex;
                justify-content: center;
@@ -29,6 +55,19 @@
                width: 100%;
                flex-direction: column;
            }
+
+           .list-wrapper {
+               margin-right: 15px;
+               display: flex;
+           }
+
+           .form-group.rating {
+                width: 120px;
+            }
+
+            .form-group.textarea {
+                width: 460px;
+            }
 
            .back-link-wrapper {
                display: flex;
