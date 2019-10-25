@@ -14,16 +14,19 @@
                 <input type="submit" name='search-button' class="btn btn-outline-secondary" value='Search' />
             </form>
         </div>
-
         <div class='results-wrapper'>
             <ul class="list-group">
-                {% for value in values %}
-                    <li class="item">
-                        <a href={{ url_for('book', isbn=value.isbn) }}>{{ value.author }}</a>
-                        <span class="list-item-title">{{ value.title }}</span>
-                        <span class="list-item-year">{{ value.year }}</span>
-                    </li>
-                {% endfor %}
+                {% if values|length %}
+                    {% for value in values %}
+                        <li class="list-group-item">
+                            <a href={{ url_for('book', isbn=value.isbn) }} class='list-item-link'>{{ value.author }}</a>
+                            <span class="list-item-title">{{ value.title }}</span>
+                            <span class="list-item-year">{{ value.year }}</span>
+                        </li>
+                    {% endfor %}
+                {% else %}
+                    <li class='item'><span>No items found.</span></li>
+                {% endif %}
             </ul>
         </div>
     </div>
@@ -43,12 +46,11 @@
             }
 
             .search-wrapper {
-                height: 100%;
                 width: 100%;
-
+                margin-top: 5%;
                 display: flex;
                 justify-content: center;
-                align-items: center;
+                align-items: ;
             }
 
             .search-form {
