@@ -16,16 +16,18 @@
         </div>
         <div class='results-wrapper'>
             <ul class="list-group">
-                {% if values|length %}
-                    {% for value in values %}
-                        <li class="list-group-item">
-                            <a href={{ url_for('book', isbn=value.isbn) }} class='list-item-link'>{{ value.author }}</a>
-                            <span class="list-item-title">{{ value.title }}</span>
-                            <span class="list-item-year">{{ value.year }}</span>
-                        </li>
-                    {% endfor %}
-                {% else %}
-                    <li class='item'><span>No items found.</span></li>
+                {% if values is defined %}
+                    {% if values|length %}
+                        {% for value in values %}
+                            <li class="list-group-item">
+                                <a href={{ url_for('book', isbn=value.isbn) }} class='list-item-link'>{{ value.author }}</a>
+                                <span class="list-item-title">{{ value.title }}</span>
+                                <span class="list-item-year">{{ value.year }}</span>
+                            </li>
+                        {% endfor %}
+                    {% else %}
+                        <li class='item'><span>No items found.</span></li>
+                    {% endif %}
                 {% endif %}
             </ul>
         </div>
@@ -74,6 +76,13 @@
             .list-group {
                 margin-top: 25px;
                 list-style: none;
+                width: 680px;
+            }
+
+            .list-group li.list-group-item {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
             }
 
             .list-item-title {

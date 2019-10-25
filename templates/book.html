@@ -8,7 +8,13 @@
         <div class="list-wrapper">
             <div class="card" style="width: 18rem;">
                 <div class="card-body">
-                    <p class="card-text">Rating: {{ book_data.ratings_count }}</p>
+                    <h5 class="card-title">{{ book_data.title }}</h5>
+                    <h6 class="card-subtitle mb-2 text-muted">{{ book_data.author }}</h6>
+                    <p class="card-text small">Publication date: {{ book_data.year }}</p>
+                    <p class="card-text">ISBN number: {{ book_data.isbn }}</p>
+
+                    <p class="card-text">Reviews: {{ book_data.reviews_count }}</p>
+                    <p class="card-text">Average rating: {{ book_data.average_score }}</p>
                 </div>
             </div>
         </div>

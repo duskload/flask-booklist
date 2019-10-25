@@ -94,6 +94,9 @@ def book(isbn):
     res = requests.get("https://www.goodreads.com/book/review_counts.json", params={"key": os.getenv("GOODREADS_API_KEY"), "isbns": isbn })
     response_obj = res.json()
 
-    book_data = response_obj['books'][0]
+    book = db.execute("SELECT * FROM books WHERE isbn = :isbn", { "isbn": isbn }).fetchone()
+    book_statistics = response_obj['books'][0]
+    
+    book_data = { **book, "average_score": book_statistics['average_rating'], "reviews_count": book_statistics['work_ratings_count'] }
 
     return render_template('book.html', book_data=book_data)
