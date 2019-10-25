@@ -19,10 +19,13 @@
                 </div>
             </div>
             <div class="review-wrapper">
-                <form action='/submit-review' method="post">
+                {% if book_data.has_review %}
+                    <p> You have already reviewed this book </p>
+                {% else %}
+                <form action={{ url_for('review', isbn=book_data.isbn) }} method="post">
                     <div class="form-group rating">
                         <label for="rate">Rate a book:</label>
-                        <select class="form-control" id="rate">
+                        <select class="form-control" name='rating' id="rate">
                             {% for value in [1,2,3,4,5] %}
                                 <option>{{ value }}</option>
                             {% endfor %}
@@ -30,10 +33,11 @@
                     </div>
                     <div class="form-group textarea">
                         <label for="textarea">What do you think about this book? </label>
-                        <textarea class="form-control textarea" id="textarea" rows="9"></textarea>
+                        <textarea class="form-control textarea" id="textarea" name='text' rows="9"></textarea>
                     </div>
                     <input type="submit" name='submit-review' class="btn btn-outline-primary" value='Submit review' />
                 </form>
+                {% endif %}
             </div>
         </div>
     </div>

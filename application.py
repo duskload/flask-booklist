@@ -96,7 +96,26 @@ def book(isbn):
 
     book = db.execute("SELECT * FROM books WHERE isbn = :isbn", { "isbn": isbn }).fetchone()
     book_statistics = response_obj['books'][0]
+
+    has_review = db.execute("SELECT * FROM reviews WHERE isbn = :isbn", { "isbn": isbn }).rowcount > 0
     
-    book_data = { **book, "average_score": book_statistics['average_rating'], "reviews_count": book_statistics['work_ratings_count'] }
+    book_data = { **book, "average_score": book_statistics['average_rating'], "reviews_count": book_statistics['work_ratings_count'], "has_review": has_review }
 
     return render_template('book.html', book_data=book_data)
+
+@app.route('/review/<isbn>', methods=["POST"])
+def review(isbn):
+
+    if request.method == 'POST':
+        text = request.form.get('text')
+        rating = request.form.get('rating')
+
+        user = session.get('user')
+
+        db.execute("INSERT INTO reviews (user_id, isbn, text, rating) VALUES (:user_id, :isbn, :text, :rating)", {
+            "user_id": user['id'], "isbn": isbn, "text": text, "rating": rating
+        })
+
+        db.commit()
+
+        return redirect(f'/book/{isbn}')
